@@ -4,6 +4,8 @@
 
 ## 1093
 
+要点：(c = getchar()) != EOF　前面一定要用括号，因为  != 优先级大于 = 
+
 ```c++
 #include<set>
 #include<cstdio>
