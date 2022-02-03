@@ -1,8 +1,60 @@
 # PAT (Basic Level) Practice
 
+## 1064 A1
+
+使用set时无需考虑是否已经存在某元素，直接插入即可，判断反而会浪费时间
+
+```c++
+#include<set>
+#include<cstdio>
+using namespace std;
+
+int main()
+{
+	int T, n;
+	set<int> ans;
+	scanf("%d", &T);
+	while (T--) {
+		scanf("%d", &n);
+		int id = 0;
+		while (n != 0) { id += n % 10; n /= 10;}
+		ans.insert(id);/*不用判断是否已经有此元素，直接插*/
+	}
+
+	printf("%d\n", ans.size());
+	for (set<int>::iterator it = ans.begin(); it != ans.end(); it++) {
+		if(it != ans.begin()) printf(" ");
+		printf("%d", *it);
+	}
+	return 0;
+}
+```
 
 
-## 1093
+
+## 1087 A1
+
+```c++
+#include<set>
+#include<cstdio>
+using namespace std;
+
+int main()
+{
+	set<int> s;
+	int n;
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++) {
+		s.insert(i / 2 + i / 3 + i / 5);
+	}
+	printf("%d", s.size());
+	return 0;
+}
+```
+
+
+
+## 1093 A1
 
 要点：(c = getchar()) != EOF　前面一定要用括号，因为  != 优先级大于 = 
 
