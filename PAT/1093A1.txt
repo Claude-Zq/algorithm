@@ -1,0 +1,19 @@
+要点：(c = getchar()) != EOF　前面一定要用括号，因为  != 优先级大于 = 
+
+```c++
+#include<set>
+#include<cstdio>
+using namespace std;
+
+int main()
+{
+	int c;
+	set<char> s;
+	s.insert('\n');
+	while ((c = getchar()) != EOF) {　／＊不等号前一定要打括号＊／
+		if (!s.count(c)) { putchar(c); s.insert(c); }
+	}
+	return 0;
+}
+```
+
