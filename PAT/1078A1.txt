@@ -1,0 +1,40 @@
+# 1078
+
+```c++
+#include<cstdio>
+#include<cctype>
+const int maxn = 1000+10;
+char s[maxn];
+
+int main()
+{
+	char op;
+	scanf("%c", &op);
+	getchar();/*去掉回车*/
+	fgets(s, maxn, stdin);
+	if (op == 'C') {
+        /*s的'\0'是'\n',故用'\n'来当s的结尾*/
+		for (int i = 0; s[i] != '\n' ; i++) {
+			if (s[i] == s[i + 1]) {
+				int count = 1;
+				while (s[i] == s[i + 1]) count++, i++;
+				printf("%d%c", count, s[i]);
+			}
+			else putchar(s[i]);
+		}
+
+	}
+	else if(op=='D') {
+		for (int i = 0; s[i] != '\n'; i++) { 
+			if (isdigit(s[i])) {
+				int num = 0;/*重复字符的个数*/
+				while (isdigit(s[i])) num = num * 10 + s[i++] - '0';
+				while (num--) putchar(s[i]);
+			}
+			else  putchar(s[i]);
+		}
+	}
+	return 0;
+}
+```
+

@@ -1,0 +1,45 @@
+# 1059
+
+```c++
+#include<cstdio>
+#include<algorithm>
+#include<map>
+#include<cmath>
+using namespace std;
+
+
+bool is_prime(int x) {
+	int n = floor(sqrt(x)+0.5);
+	for (int i = 2; i <= n; i++)  if (x % i == 0)return false;
+	return true;
+}
+
+int main()
+{
+	int N, K;
+	map<int, int> m;
+	const char* msg[] = { "Mystery Award","Minion","Chocolate","Checked","Are you kidding?" };
+    /*输入排名*/
+	scanf("%d", &N);
+	for (int i = 1; i <= N; i++) {
+        int id,reward;
+		scanf("%d", &id);
+		if (i == 1) reward = 0;
+		else if (is_prime(i)) reward = 1;
+		else reward = 2;
+		m[id] = reward;
+	}
+    /*查询*/
+	scanf("%d", &K);
+	for (int i = 0; i < K; i++) {
+        int id;
+		scanf("%d", &id);
+		if (!m.count(id)) printf("%04d: %s\n", id,msg[4]);
+		else { printf("%04d: %s\n",id, msg[m[id]]); m[id] = 3; }
+
+	}
+	
+	return 0;
+}
+```
+

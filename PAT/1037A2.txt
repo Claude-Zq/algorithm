@@ -1,0 +1,67 @@
+# 1037
+
+收获：作减法时，为了避免低位不够向高位借一的情况，先转成最小单位,直接相减后再按转换回去
+
+
+
+```c++
+#include<cstdio>
+
+const int GTS = 17;/*(Galleon)To(Sickle)*/
+const int STK = 29;/*(Sickle)To(Knut)*/
+
+
+class Money {
+public:
+	Money(int Sign = 1, int Galleon = 0, int Sickle = 0, int Knut = 0) {
+		this->Sign = Sign;this->Galleon = Galleon; this->Sickle = Sickle; this->Knut = Knut;
+	}
+	int Galleon,Sickle,Knut;
+	int Sign;
+	Money operator-(const Money& m) {
+		Money ret;
+		int THIS = Sign * (Galleon * GTS * STK + Sickle * STK + Knut);
+		int M = m.Sign * (m.Galleon * GTS * STK + m.Sickle * STK + m.Knut);
+		ret.Sign = THIS >= M ? 1 : -1; /*返回值的符号*/
+		int diff = (THIS - M) * ret.Sign; /*求差的绝对值*/
+		ret.Galleon = diff / (GTS * STK);
+		ret.Sickle = diff % (GTS * STK) / STK;
+		ret.Knut = diff % STK;
+		return ret;
+	}
+};
+
+
+int main()
+{
+	int G, S, K;
+	scanf("%d.%d.%d", &G, &S, &K);
+	Money M1(1, G, S, K);
+	scanf("%d.%d.%d", &G, &S, &K);
+	Money M2(1, G, S, K);
+	Money M3 = M2 - M1;
+	printf("%d.%d.%d", M3.Sign * M3.Galleon, M3.Sickle, M3.Knut);
+	return 0;
+}
+
+```
+
+简略版
+
+```c++
+#include<cstdio>
+const int GTS = 17;/*(Galleon)To(Sickle)*/
+const int STK = 29;/*(Sickle)To(Knut)*/
+int main()
+{
+	int g, s, k;
+	scanf("%d.%d.%d", &g, &s, &k);
+	int give = g * GTS * STK + s * STK + k;
+	scanf("%d.%d.%d", &g, &s, &k);
+	int have = g * GTS * STK + s * STK + k;
+	int sign = have >= give ? 1 : -1;/*符号*/
+	int diff = (have - give) * sign;/*差的绝对值*/
+	printf("%d.%d.%d", sign * diff / (GTS * STK), diff % (GTS * STK) / STK, diff % STK);
+}
+```
+
