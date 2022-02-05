@@ -1,0 +1,21 @@
+# 1077
+
+```c++
+#include<cstdio>
+#include<cctype>
+
+int main()
+{
+    int cnt[26] = {0};
+	char c;
+    /*输入并统计*/
+	while ((c = getchar()) != '\n') if (isalpha(c)) cnt[tolower(c) - 'a']++; 
+    /*查找*/
+	int index = 0;
+	for (int i = 1; i < 26; i++) if (cnt[i] > cnt[index]) index = i;
+    /*输出*/
+	printf("%c %d",'a'+index,cnt[index]);
+	return 0;
+}
+```
+

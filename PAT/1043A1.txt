@@ -1,0 +1,41 @@
+# 1043
+
+
+
+```c++
+#include<cstdio>
+
+ const char* s = "PATest";
+ int cnt[10];
+
+/*批量输出完整的字符串*/
+void QuickPrint() {
+	int min = cnt[0];
+	for (int i = 1; i < 6; i++) min = cnt[i] < min ? cnt[i] : min;
+	for (int i = 0; i < 6; i++) cnt[i] -= min;
+	while (min--) printf("%s", s);
+}
+
+int main()
+{
+	int c;
+	while ((c = getchar()) != EOF) for (int i = 0; i < 6; i++) if (c == s[i]) { cnt[i]++; break;}
+    
+    QuickPrint();
+    /*输出剩余的*/
+	bool empty = false;
+	while (!empty) {
+		empty = true;
+		for (int i = 0; i < 6; i++) {
+			if (cnt[i]) {
+				putchar(s[i]);
+				cnt[i]--;
+				if (cnt[i] != 0) empty = false;
+			}
+		}
+	}
+
+	return 0;
+}
+```
+

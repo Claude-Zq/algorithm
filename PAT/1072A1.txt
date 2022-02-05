@@ -1,0 +1,81 @@
+# 1072
+
+收获：需要查找,用set( O(logN) )比vector( O(N) )快
+
+```c++
+#include<cstdio>
+#include<set>
+
+int main()
+{
+	int N, M;
+	int scount = 0, icount = 0;
+	scanf("%d%d", &N, &M);
+	std::set<int> s;/*存放违禁物品*/
+	for (int i = 0; i < M; i++) {
+		int ph;
+		scanf("%d", &ph);
+		s.insert(ph);
+	}
+	while (N--) {
+		char name[10];
+		int n,item,flag = 1;
+		scanf("%s %d", name,&n);
+		while (n--) {
+			scanf("%d", &item);
+			if(s.count(item)){
+				if (flag) { scount++; flag = 0; printf("%s:", name);}/*初犯*/
+				printf(" %04d", item);
+				icount++;
+			}
+		}
+		if(!flag) putchar('\n');/*被查出违禁物品才换行*/
+	}
+	printf("%d %d", scount, icount);
+	
+	return 0;
+}
+```
+
+
+
+## 参考答案后改进
+
+使用打孔法，查找违禁物的时间复杂度为O(1)
+
+```c++
+#include<cstdio>
+bool forbid[10000]; /*默认全为假*/
+
+int main()
+{
+	int N, M;
+	int scount = 0, icount = 0;
+	scanf("%d%d", &N, &M);
+	
+	/*输入违禁物*/
+	for (int i = 0; i < M; i++) {
+		int ph;
+		scanf("%d", &ph);
+		forbid[ph] = true;
+	}
+	while (N--) {
+		char name[10];
+		int n,item,flag = 1;
+		scanf("%s %d", name,&n);
+		while (n--) {
+			scanf("%d", &item);
+			if(forbid[item]){
+				if (flag) { scount++; flag = 0; printf("%s:", name); }
+				printf(" %04d", item);
+				icount++;
+			}
+		}
+		if (!flag) putchar('\n');
+	}
+	printf("%d %d", scount, icount);
+	
+	return 0;
+}
+```
+

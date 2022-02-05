@@ -1,0 +1,54 @@
+# 1075
+
+教训：map的key尽量用独一无二的量，否则难以查找
+
+
+
+```c++
+#include<cstdio>
+#include<vector>
+#include<map>
+using namespace std;
+
+
+class Node {
+public:
+	Node(int d = 0, int n = 0) :data(d), next(n) {}
+	int data, next;
+};
+
+int main()
+{
+	int N, K, head;
+	scanf("%d %d %d", &head, &N, &K);
+	map<int, Node> ATN;/*Address to Node*/
+	vector<int> v[3];
+	
+	int address, data, next;
+	/*输入所有节点*/
+	for (int i = 0; i < N; i++) {
+		scanf("%d %d %d", &address, &data, &next);
+		ATN[address] = Node(data, next);
+	}
+	/*遍历链表,按data分类*/
+	for (int i = head; i != -1;) {
+		Node dn = ATN[i];
+		if (dn.data < 0) v[0].push_back(i);
+		else if (dn.data > K) v[2].push_back(i);
+		else v[1].push_back(i);
+		i = dn.next;
+	}
+
+	bool first = 1;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < v[i].size(); j++) {
+			if (first) {printf("%05d %d ", v[i][j], ATN[v[i][j]].data);first = false;}
+			else printf("%05d\n%05d %d ", v[i][j], v[i][j], ATN[v[i][j]].data);
+		}
+	}
+	printf("-1");
+	
+	return 0;
+}
+```
+

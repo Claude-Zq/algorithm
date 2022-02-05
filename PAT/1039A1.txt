@@ -1,0 +1,36 @@
+# 1031
+
+字符串处理，使用打孔法
+
+```c++
+#include<cstdio>
+#include<cctype>
+
+int main()
+{
+
+	int cnt1[66] = {0},cnt2[66] = {0};
+	int c;
+	while ((c = getchar()) != '\n') {
+		if (isdigit(c)) cnt1[c - '0']++;
+		else if (islower(c)) cnt1[c - 'a' + 10]++;
+		else if (isupper(c))  cnt1[c - 'A' + 36]++;
+	}
+	while ((c = getchar()) != EOF) {
+		if (isdigit(c)) cnt2[c - '0']++;
+		else if (islower(c)) cnt2[c - 'a' + 10]++;
+		else if (isupper(c))  cnt2[c - 'A' + 36]++;
+	}
+	bool yes = true;
+	int more = 0, less = 0;
+	for (int i = 0; i < 62; i++) {
+		if (cnt1[i] < cnt2[i]) { less += cnt2[i] - cnt1[i]; yes = false; }
+		else more += cnt1[i] - cnt2[i];
+	}
+	
+	printf("%s %d", yes ? "Yes":"No",yes? more:less);
+
+	return 0;
+}
+```
+

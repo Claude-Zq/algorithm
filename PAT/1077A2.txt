@@ -1,0 +1,36 @@
+# 1072
+
+坑:
+
+1.不能靠隐式转换将double/float类型的整数部分直接输出，必须先强转为int或者用%.0f
+
+2.double类型输入时，必须用%lf
+
+```c++
+#include<cstdio>
+
+int main()
+{
+	int N, M;
+	scanf("%d %d", &N, &M);
+	for (int i = 0; i < N; i++) {
+		int max = -1, min = M + 1, count = 0,score;
+		double g1 = 0, g2;
+		scanf("%lf", &g2);
+        
+		for (int j = 0; j < N - 1; j++) {
+			scanf("%d", &score);
+			if (score >= 0 && score <= M) { 
+				g1 += score; count++;
+				if (score > max) max = score;
+				if (score < min) min = score;
+			}
+		}
+		g1 = (g1 - max - min) / (count - 2);
+		if (i) putchar('\n');
+        printf("%d",(int)(((g1 + g2)*0.5 + 0.5))); /*必须先强转为int才能输出*/
+	}
+	return 0;
+}
+```
+
