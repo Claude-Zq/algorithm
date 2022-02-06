@@ -1,0 +1,118 @@
+# 1017
+
+想起紫书上讲的BigInteger类
+
+```c++
+#include<cstdio>
+#include<vector>
+#include<string>
+#include<cstring>
+#include<iostream>
+using namespace std;
+
+
+class BigInteger {
+public:
+	static const int WIDIH = 8;
+	vector<int> s;
+	BigInteger operator= (const string& str) {
+		s.clear();
+		int x, len = (str.length() - 1) / WIDIH + 1;
+		for (int i = 0; i < len; i++) {
+			int end = str.length() - i * WIDIH;
+			int start = 0 > (end - WIDIH) ? 0 : end - WIDIH;
+			sscanf(str.substr(start, end - start).c_str(), "%d", &x);
+			s.push_back(x);
+		}
+		return *this;
+	}
+
+	friend istream& operator>>(istream& in, BigInteger& x) {
+		string s;
+		if (!(in >> s))return in;
+		x = s;
+		return in;
+	}
+	friend ostream& operator<<(ostream& out, BigInteger& x) {
+		out << x.s.back();
+		for (int i = x.s.size() - 2; i >= 0; i--) {
+			char buf[20];
+			sprintf(buf, "%08d", x.s[i]);
+			for (int j = 0; j < strlen(buf); j++)out << buf[j];
+		}
+		return out;
+	}
+	friend BigInteger operator/(const BigInteger& B, int a) {
+		vector<int> v;
+		for (int i = B.s.size() - 1, rmd = 0; i >= 0; i--) {
+			for (int j = 0; j < WIDIH; j++) rmd *= 10;
+			int sum = B.s[i] + rmd;
+			int x = sum / a;
+			rmd = sum - x * a;
+			v.push_back(x);
+		}
+
+		BigInteger ret;
+		ret.s.assign(v.rbegin(), v.rend());
+		return ret;
+	}
+
+	friend int operator%(const BigInteger& B, int a) {
+		if (B.s.size() == 1) return B.s[0] % a;
+		int rmd = 0;
+		for (int i = B.s.size() - 1; i >= 0; i--) {
+			for (int j = 0; j < WIDIH; j++) rmd *= 10;
+			int sum = B.s[i] + rmd;
+			int x = sum / a;
+			rmd = sum - x * a;
+		}
+		return rmd;
+	}
+
+};
+
+
+int main() {
+
+	BigInteger A;
+	int B;
+	cin >> A >> B;
+	BigInteger  Q = A / B;
+	int R = A % B;
+	cout << Q << " " << R;
+	return 0;
+}
+```
+
+
+
+看了答案后改进而来的
+
+```c++
+#include<string>
+#include<iostream>
+using namespace std;
+
+int main() {
+    
+	string A;
+	int B;
+	cin >> A >> B;
+    if (A.size() == 1) {
+		cout << (A[0] - '0') / B << " " << (A[0] - '0') % B;
+		return 0;
+	}
+	int r=(A[0] - '0') % B,x = (A[0] - '0') / B;
+	if(x) cout<<x;
+	for (int i = 1; i < A.length(); i++) {
+		int sum = r * 10 + A[i] - '0';
+		x = sum / B;
+		r = sum - x * B;
+		cout << x;
+	}
+
+	cout << " " << r;
+	return 0;
+}
+```
+

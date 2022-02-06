@@ -1,0 +1,30 @@
+# 1097
+
+坑：认真审题！题目让求变换后各列之和而非各行之和
+
+```c++
+#include<cstdio>
+
+int main()
+{
+    int rows[110],ans[110] = {0};/*存放每列的和*/
+	int n, k, x;
+    
+	scanf("%d%d%d", &n, &k, &x);
+	int cnt = -1,move;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) scanf("%d", &rows[j]);
+        /*计算平移位数*/
+		if (i % 2 == 0) move = (++cnt) % k + 1;
+		else move = 0;
+		for (int j = 0; j < move; j++) ans[j] += x;
+		for (int j = 0; j < n - move; j++)ans[j + move] += rows[j];
+	}
+	for (int i = 0; i < n; i++) {
+		if (i) putchar(' ');
+		printf("%d", ans[i]);
+	}
+	return 0;
+}
+```
+

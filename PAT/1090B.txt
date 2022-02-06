@@ -1,0 +1,105 @@
+# 1090
+
+
+
+## 有bug版，2AC 1TLE 1WA
+
+```c++
+#include<cstdio>
+#include<set>
+using namespace std;
+
+set<int> IC[100000];
+
+int main()
+{
+
+	int N, M;
+	scanf("%d %d", &N, &M);
+
+	for (int i = 0; i < N; i++) {
+		int a, b;
+		scanf("%d %d", &a, &b);
+		IC[a].insert(b);
+		IC[b].insert(a);
+	}
+	for (int i = 0; i < M; i++) {
+		int K;
+		bool ans = true;
+		set<int> s;/*与本箱子不相容的物品集合*/
+		scanf("%d", &K);
+		while (K--) {
+			int id;
+			scanf("%d", &id);
+			if (s.count(id)) { ans = false; break; }
+			if (cnt = IC[id].size()) 
+            for (set<int>::iterator it = IC[id].begin(); it != IC[id].end(); it++) s.insert(*it);
+		}
+		if (i)putchar('\n');
+		printf("%s", ans ? "Yes" : "No");
+	}
+
+
+
+	return 0;
+}
+```
+
+
+
+
+
+##  看答案后加上自己的创新写的
+
+
+
+```c++
+#include<cstdio>
+#include<map>
+#include<vector>
+#include<cstring>
+using namespace std;
+
+/*物品编号-->与其不相容物品编号的组成的数组 的映射*/
+map<int, vector<int>> m;
+/*打孔记录每个箱子内的物品编号*/
+bool a[100000];
+
+int main() {
+
+	int N, M;
+	scanf("%d %d", &N, &M);
+	map<int, vector<int>> m;
+
+    /*记录不相容物品*/
+	for (int i = 0; i < N; i++) {
+		int a, b;
+		scanf("%d %d", &a, &b);
+		m[a].push_back(b);
+		m[b].push_back(a);
+	}
+    /*检查每个箱子*/
+	while(M--){
+		int K;
+        bool ans = true;
+		memset(a, 0, sizeof(a));
+		scanf("%d", &K);
+		vector<int> v(K);
+		for (int j = 0; j < K;j++) {
+			scanf("%d",&v[j]);
+			a[v[j]] = true;
+		}
+
+		for (int i = 0; i < K && ans; i++){
+			if (!m.count(v[i])) continue;/*与其他物品均不互斥*/
+			for (int j = 0; j < m[v[i]].size(); j++)
+				if (a[m[v[i]][j]]) { ans = false; break; }/*互斥物就在该箱*/
+		}
+		printf("%s", ans ? "Yes" : "No");
+        if(M) putchar('\n');
+	}
+
+	return 0;
+}
+```
+

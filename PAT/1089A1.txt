@@ -1,0 +1,33 @@
+# 1089
+
+坑：文字内容直接复制，差点因为No Solution没有大小调试半天
+
+```c++
+#include<cstdio>
+using namespace std;
+
+int main() {
+
+	int N,words[110];
+	scanf("%d", &N);
+	bool find = false;
+	for (int i = 1; i <= N; i++) scanf("%d", &words[i]);
+		
+	for (int i = 1; i <= N - 1; i++) {
+		for (int j = i + 1; j <= N; j++) {
+			int bad = 0, good = 0;
+			for (int k = 1; k <= N; k++) {
+				/*说真话*/
+				if ((words[k] > 0 && words[k] != i && words[k] != j) || (words[k] < 0 && (words[k] == -i || words[k] == -j))){}
+				else {if (k == i || k == j) bad++;else good++;}
+			}
+			if (bad == 1 && good == 1) find = true;
+			if (find) { printf("%d %d", i, j); return 0; }
+		}
+	}
+	printf("No Solution");
+    
+	return 0;
+}
+```
+
