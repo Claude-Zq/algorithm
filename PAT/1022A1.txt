@@ -1,0 +1,35 @@
+# 1022
+
+
+
+
+
+```c++
+#include<cstdio>
+
+int main() {
+
+	int A, B, sum, D;
+	scanf("%d%d%d", &A, &B, &D);
+	sum = A + B;
+	
+	if (D == 10) { printf("%d", sum); return 0; } 
+    /*删掉该句会有一个WA，但没排到原因：小的不用说，当 A+B = 2147483648会溢出，但按题意不会达到该临界值*/
+    
+	if (sum == 0) { printf("0"); return 0; }
+
+	int ans[50];
+	int index = -1, power = 1;
+
+	while (sum / power > 0) {
+ 		//ans[++index] = sum % (power*D) / power; //会溢出,可以把power换成long型解决
+		ans[++index] = (sum / power % D);
+		power *= D;
+	}
+
+	for (int i = index; i >= 0; i--) printf("%d", ans[i]);
+
+	return 0;
+}
+```
+

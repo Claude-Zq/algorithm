@@ -1,0 +1,63 @@
+# 1029
+
+冷知识：bool数组声明在全局区，默认值为false,声明在main函数内，默认值为true
+
+
+
+```c++
+#include<iostream>
+#include<string>
+#include<set>
+#include<cctype>
+using namespace std;
+
+
+int main() {
+    
+	string str;
+	set<char> Set, checked;
+	int c;
+	cin >> str;
+	while ((c = getchar())!=EOF) Set.insert(toupper(c));
+	
+	for (int i = 0; i < str.size(); i++) {
+		str[i] = toupper(str[i]);
+		if ((!Set.count(str[i])) && (!checked.count(str[i]))) {cout << str[i];checked.insert(str[i]);}
+	}
+	return 0;
+}
+```
+
+
+
+不用set，采用打孔法的代码：
+
+
+```c++
+#include<cstdio>
+#include<cstring>
+#include<cctype>
+
+const int maxn = 128+10;
+bool cnt[maxn], checked[maxn];
+
+int main() {
+    
+	char s[100];
+	scanf("%s", s);
+	getchar();/*去掉回车*/
+    
+	for (int i = 0; i < maxn; i++) checked[i] = cnt[i] = false;/*两个数声明在全局区是可以免去*/
+
+	int c;
+	while ((c = getchar()) != EOF) cnt[toupper(c)] = true;
+
+	int len = strlen(s);
+	for (int i = 0; i < len; i++) {
+		s[i] = toupper(s[i]);
+		if ((!cnt[s[i]]) && (!checked[s[i]])) { putchar(s[i]); checked[s[i]] = true;}
+	}
+	return 0;
+}
+```
+

@@ -1,0 +1,25 @@
+# 1047
+
+打孔法yyds
+
+```c++
+#include<cstdio>
+
+int T[1010] = {0};
+
+int main() {
+
+	int n,team,member,score;
+	scanf("%d", &n);
+	while (n--) {
+		scanf("%d-%d %d", &team, &member, &score);
+		T[team] += score;
+	}
+	int max = 1;
+	for (int i = 1; i <= 1000; i++) if (T[i] > T[max]) max = i;
+
+	printf("%d %d", max, T[max]);
+	return 0;
+}
+```
+

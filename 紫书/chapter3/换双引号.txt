@@ -1,0 +1,22 @@
+TeX中的引号
+
+```c
+#include <stdio.h>
+
+void test01()
+{
+    int c,q = 1;
+    while((c=getchar())!=EOF){
+        if(c=='"'){printf("%s",q?"“":"”");q =!q;}
+        else printf("%c",c);
+    }
+}
+
+int main()
+{
+    test01();
+    return 0;
+}
+
+```
+
