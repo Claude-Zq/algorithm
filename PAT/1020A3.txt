@@ -1,0 +1,105 @@
+# 1020
+
+坑：题目给的库存和需求量虽然都是整型，但只有用浮点型才过得了全部样例
+
+发现，用sort()函数给vector降序排列时,可以直接用sort(v.rbegin(),v.rend());
+
+
+
+```c++
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+/*prize to index*/
+struct PTI {
+	PTI(double prize, int index) : m_prize(prize), m_index(index) {}
+	bool operator<(const PTI& p) {
+		return this->m_prize < p.m_prize;
+	}
+	double m_prize;
+	int m_index;
+};
+
+
+int main() {
+	vector<int> IS, TSP;
+	vector<PTI> v;
+	int n, d;
+	scanf("%d %d", &n, &d);
+
+	IS.resize(n);
+	TSP.resize(n);
+
+	for (int i = 0; i < n; i++) scanf("%d", &IS[i]);
+		
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &TSP[i]);
+		v.push_back(PTI((double)TSP[i] / IS[i], i));
+	}
+
+	sort(v.rbegin(), v.rend()); /*直接反过来就是降序*/
+
+	double ans = 0;
+	
+	for (int i = 0, index = v[0].m_index; i < n;) { /*考虑求大于供的情况*/
+		if (d >= IS[index]) {
+			ans += TSP[index];
+			d -= IS[index];
+			index = v[++i].m_index;
+		}
+		else { ans += v[i].m_prize * d; break; }
+	}
+
+	printf("%.2lf", ans);
+
+	return 0;
+}
+```
+
+
+
+
+
+```c++
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+struct mooncake {
+	double stock, sales;
+	double unit;
+
+	bool operator<(const mooncake& m) {
+		return this->unit < m.unit;
+	}
+};
+
+int main() {
+	int n, d;
+	scanf("%d %d", &n, &d);
+	vector<mooncake> v(n);
+	
+	for (int i = 0; i < n; i++) scanf("%lf", &v[i].stock);/*记录库存*/
+	for (int i = 0; i < n; i++) {
+		scanf("%lf", &v[i].sales); /*记录总销售额*/
+		v[i].unit = v[i].sales / v[i].stock; /*计算单价*/
+	}
+	
+	sort(v.rbegin(), v.rend()); /*倒着升序就是降序*/
+
+	double ans = 0;
+	for (int i = 0; i < n; i++) {
+		if (d >= v[i].stock) ans += v[i].sales;
+		else {ans += d * v[i].unit; break; }
+        d -= v[i].stock;
+	}
+
+	printf("%.2lf", ans);
+
+	return 0;
+}
+```
+

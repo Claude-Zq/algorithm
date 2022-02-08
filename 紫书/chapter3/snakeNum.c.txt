@@ -22,8 +22,10 @@ void PrintArr(int a[][maxn],int m,int n)
 }
 
 
-void test01()
+
+int main()
 {
+
     int n;
     scanf("%d",&n);
     /*给二维数组初始换*/
@@ -57,14 +59,6 @@ void test01()
     /*打印结果*/
     PrintArr(a,n,n);
 
-
-}
-
-
-int main()
-{
-
-    test01();
     return 0;
 }
 

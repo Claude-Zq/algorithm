@@ -1,0 +1,28 @@
+# 1033
+
+```c++
+#include<cstdio>
+#include<cctype>
+
+const int maxn = 128+10;
+bool key[maxn];
+
+int main() {
+
+	for (int i = 0; i < maxn; i++) key[i] = true;
+	int c;
+	while ((c = getchar()) != '\n') {
+		key[c] = false;
+		key[tolower(c)] = false;
+	}
+
+	while ((c = getchar()) != EOF) {
+		if (!key[c]) continue;/*this key is broken*/
+		if (isupper(c) && !key['+']) continue;
+		putchar(c);
+	}
+    
+	return 0;
+}
+```
+

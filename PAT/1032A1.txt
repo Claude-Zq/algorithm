@@ -1,0 +1,99 @@
+# 1032
+
+使用map,但其查找和插入比较耗时
+
+```c++
+#inlcude<map>
+#include<cstdio>
+
+int main() {
+
+	int n,school,score;
+	std::map<int, int> m;
+	
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d %d", &school,&score);
+		std::map<int, int>::iterator it = m.find(school);
+		if (it != m.end()) it->second += score;/*已经有该学校的记录*/
+		else m.insert(std::pair<int, int>(school, score));
+	}
+
+	std::map<int, int>::iterator max = m.begin();
+	for (std::map<int, int>::iterator it = m.begin(); it != m.end(); it++) if (it->second > max->second) max = it;
+
+	printf("%d %d", max->first, max->second);
+	
+
+	return 0;
+}
+```
+
+
+
+
+
+用打孔法：时间复杂度O(n),空间复杂度O(1)
+
+
+
+```c++
+#include<cstdio>
+#define maxn 100000+10
+
+int cnt[maxn];
+
+int main() {
+
+	int n,school,score;
+	for (int i = 0; i < maxn; i++) cnt[i] = 0; /*清一下*/
+	
+	scanf("%d", &n);
+	while(n--) {
+		scanf("%d %d", &school, &score);
+		cnt[school] += score;
+	}
+
+	int index = 1;
+	for (int i = 1; i < maxn; i++) if (cnt[i] > cnt[index]) index = i;
+	printf("%d %d", index,cnt[index]);
+
+
+	return 0;
+}
+```
+
+
+
+当然,可以用vector来抠一些空间
+
+
+
+```c++
+#include<cstdio>
+#include<vector>
+
+
+int main() {
+
+	std::vector<int> cnt;
+	int n, school, score;
+
+	scanf("%d", &n);
+	cnt.resize(n + 1);/*学校编号是连续的，学校个数肯定小于参赛人数*/
+	//for (int i = 0; i <= n; i++) cnt[i] = 0; //默认为零，可以不用清
+
+	for (int i = 0; i < n; i++) {
+		scanf("%d %d", &school, &score);
+		cnt[school] += score;
+	}
+
+	int index = 1;
+	for (int i = 1; i <= n; i++) if (cnt[i] > cnt[index]) index = i;
+	printf("%d %d", index, cnt[index]);
+
+
+	return 0;
+}
+```
+

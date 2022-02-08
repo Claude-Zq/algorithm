@@ -1,0 +1,25 @@
+# 1038
+
+使用打孔法统计
+
+```c++
+#include<cstdio>
+
+int score[101];
+
+int main() {
+	
+	int n, k, x;
+    
+	for(int i = 1;i<=100;i++) score[i] = 0;
+    /*输入并统计*/
+	scanf("%d", &n);
+	while (n--) {scanf("%d", &x); score[x]++;}
+    /*输出*/
+	scanf("%d", &k);
+	while (k--) {scanf("%d", &x); printf("%d", score[x]); if (k)  putchar(' ');}
+    
+	return 0;
+}
+```
+

@@ -1,0 +1,28 @@
+# 1098
+
+
+
+```c++
+#include<cstdio>
+
+int main() {
+
+	int top =1001, bottom = -1;
+	int n;
+	scanf("%d", &n);
+	for (int i = 0, temp; i < n; i++) {
+		scanf("%d", &temp);
+		if (temp < top) top = temp;
+	}
+	for (int i = 0, temp; i < n; i++) {
+		scanf("%d", &temp);
+		if (temp > bottom) bottom = temp;
+	}
+	
+	if (top - bottom >= 1) printf("Yes %d", top - bottom);
+	else printf("No %d", bottom - top + 1);
+
+	return 0;
+}
+```
+

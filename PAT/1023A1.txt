@@ -1,0 +1,33 @@
+# 1023
+
+
+
+收获：
+
+1.用printf()输出时，如果输出格式需要在运行过程中才能确定，可以用*占位，用一个变量来修饰格式符
+
+2." %a.bf "中，a表示整个(小数点算一位)字段长度(可以自动扩大,即可多不可少），b表示保留的小数位数(会自动四舍五入)，小数位数不够时用0补位
+
+```c++
+
+#include<cstdio>
+
+int main() {
+
+	int zero,positive;
+
+	scanf("%d", &zero);
+	for (int i = 1; i <= 9; i++) {
+		scanf("%d", &positive);
+		if (zero && positive) {
+			printf("%d", i); positive--;
+			printf("%0*d", zero, 0);
+			zero = 0;
+		}
+		while (positive--)printf("%d", i);
+	}
+
+	return 0;
+}
+```
+

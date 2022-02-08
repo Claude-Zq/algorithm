@@ -1,0 +1,33 @@
+# 1092
+
+```c++
+#include<cstdio>
+#include<vector>
+using namespace std;
+
+int main() {
+
+	int n, m;
+	scanf("%d %d", &n, &m);
+	vector<int> cnt(n + 1);
+
+	//for (int i = 0; i <= n; i++) cnt[i] = 0; /*清一下*/
+
+	while (m--) for (int i = 1, x; i <= n; i++) { scanf("%d", &x); cnt[i] += x; }
+
+	int max = -1;
+	for (int i = 1; i <= n; i++) if (cnt[i] > max) max = cnt[i];
+	printf("%d\n", max);
+
+	for (int i = 1, flag = 1; i <= n; i++)
+		if (cnt[i] == max) {
+			if (flag) { printf("%d", i); flag = 0; }
+			else printf(" %d", i);
+		}
+
+
+
+	return 0;
+}
+```
+

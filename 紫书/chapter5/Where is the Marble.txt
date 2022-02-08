@@ -25,7 +25,7 @@ CASE# 2：
 
 ### A A1
 
-```c
+```c++
 #pragma warning(disable:4996)/*解决fopen、fscanf 在VS中要求替换为fopen_s、fscanf_s*/
 #include<vector>
 #include<algorithm>
