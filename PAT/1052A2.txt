@@ -1,0 +1,73 @@
+# 1052
+
+
+
+```c++
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+
+
+
+int main() {
+	
+	string s;
+    /*输入组件*/
+	vector<vector<string>> v(3);
+	for (int i = 0; i < 3; i++) {
+		int count = 0;
+		v[i].push_back("");
+
+		getline(cin, s);
+		for (int j = 0; j < s.size(); j++) {
+			if (s[j] == '[') {
+				count++;
+				v[i].push_back("");
+				while (s[++j] != ']') { v[i][count] += s[j]; }
+			}
+		}
+
+	}
+
+    /*输出表情*/
+	int k;
+	scanf("%d", &k);
+	while(k--){
+		int temp;
+		bool kid = false;
+		string ans;
+
+		scanf("%d", &temp);
+		if (temp > v[0].size() - 1|| temp < 1 )  kid = true;
+		else ans += v[0][temp];
+
+		ans += '(';
+
+		scanf("%d", &temp);
+		if (temp > v[1].size() - 1 || temp < 1)  kid = true;
+		else ans += v[1][temp];
+
+		scanf("%d", &temp);
+		if (temp > v[2].size() - 1 || temp < 1)  kid = true;
+		else ans += v[2][temp];
+
+		scanf("%d", &temp);
+		if (temp > v[1].size() - 1 || temp < 1)  kid = true;
+		else ans += v[1][temp];
+
+		ans += ')';
+
+		scanf("%d", &temp);
+		if (temp > v[0].size() - 1 || temp < 1)  kid = true;
+		else ans += v[0][temp];
+
+		if (kid) cout << "Are you kidding me? @\\/@" << endl;
+		else cout << ans << endl;
+
+	}
+
+	return 0;
+}
+```
+
