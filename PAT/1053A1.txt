@@ -1,0 +1,35 @@
+# 1053
+
+```c++
+#include<cstdio>
+#include<ctype.h>
+
+
+int main() {
+
+	int N, D,mayem = 0,empty = 0;
+	float e;
+
+	scanf("%d %f %d", &N, &e, &D);
+
+	for (int i = 0; i < N; i++) {
+		int K,cnt = 0;
+		float temp;
+		scanf("%d", &K);
+		for (int j = 0; j < K; j++) {
+			scanf("%f", &temp);
+			if (temp < e)cnt++;
+		}
+		if (2 * cnt > K) K > D ? empty++ : mayem++;
+	}
+
+
+	printf("%.1f%% %.1f%%", 100.0 * mayem / N, 100.0 * empty / N);
+
+
+
+
+	return 0;
+}
+```
+

@@ -1,0 +1,27 @@
+# 1082
+
+
+
+```c++
+#include<cstdio>
+
+int main() {
+
+	int bestId, worstId;
+	int bestScore = 100 * 100 * 2, worstScore = -1;
+	int N, id, x, y;
+
+	scanf("%d", &N);
+	while (N--) {
+		scanf("%d %d %d", &id, &x, &y);
+		int score = x * x + y * y;
+		if (score > worstScore) { worstId = id; worstScore = score; }
+		if (score < bestScore) { bestId = id; bestScore = score; }
+	}
+
+	printf("%04d %04d\n", bestId, worstId);
+
+	return 0;
+}
+```
+

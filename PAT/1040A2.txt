@@ -1,0 +1,58 @@
+# 1040
+
+龟速版: 2AC 3TLE
+
+```c++
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main() {
+	string s;
+	cin >> s;
+	int ans = 0;
+
+	for (int i = 0; i < s.size(); i++) {
+		while (i < s.size() && s[i] != 'P') i++;
+		for (int j = i + 1; j < s.size(); j++) {
+			while (j < s.size() && s[j] != 'A') j++;
+			for (int k = j + 1; k < s.size(); k++) {
+				while (k < s.size() && s[k] != 'T') k++;
+				if (k < s.size()) ans++;
+			}
+		}
+	}
+	printf("%d\n", ans % 1000000007);
+
+	return 0;
+}
+```
+
+
+
+光速版
+
+```c++
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+int main() {
+	string s;
+	cin >> s;
+	long ans = 0; /*ans是int型时回溢出*/
+	int cntP = 0,cntT = count(s.begin(),s.end(),'T');
+
+	for (int i = 0; i < s.size(); i++) {
+		if (s[i] == 'P') cntP++;
+		else if (s[i] == 'T') cntT--;
+		else if (s[i] == 'A') ans += cntP * cntT;
+	}
+
+    cout<<ans%1000000007<<endl;
+
+	return 0;
+}
+```
+

@@ -1,0 +1,27 @@
+# 1083
+
+
+
+```c++
+#include<vector>
+#include<cstdio>
+
+int main() {
+
+	std::vector<int> cnt;
+	int N;
+	scanf("%d", &N);
+	cnt.resize(N);
+	for (int i = 0; i < N; i++)  cnt[i] = 0;/*清一下*/
+	
+	for (int i = 1,card; i <= N; i++) {
+		scanf("%d", &card);
+		card > i ? cnt[card - i]++ : cnt[i - card]++;
+	}
+	for (int i = N - 1; i >= 0; i--) if (cnt[i] > 1) printf("%d %d\n", i, cnt[i]);
+    
+
+	return 0;
+}
+```
+

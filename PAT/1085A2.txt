@@ -1,0 +1,173 @@
+# 1085
+
+收获：
+
+1.二元谓词  bool cmp(T&a  T&b)  是当a在b前面(a<b)为真时返回true
+
+2.C++中的auto关键字是一个类型说明符，通过变量的初始值或者表达式中参与运算的数据类型来推断变量的类型。
+
+3.unordered_map 容器底层采用的是哈希表存储结构
+
+4.可以使用两个变量rank(排名)和tied(并列个数)实现给出并列名次得功能
+
+```c++
+//我的方法: 
+for (int i = 0,rank = 1,tied = 0; i < v.size(); i++) {
+		cout<< rank <<" " << v[i].m_name << " " << v[i].m_score << " " << v[i].m_num << endl;
+		if (i < v.size()-1 && v[i].m_score != v[i + 1].m_score) { rank += tied; rank++; tied = 0; }
+		else tied++;
+	}
+
+//liuchuo得方法
+   	int rank = 0, pres = -1;
+	for (int i = 0; i < v.size(); i++) {
+		if (pres != v[i].m_score) rank = i + 1;
+		pres = v[i].m_score;
+		printf("%d ", rank);
+		cout << v[i].m_name;
+		printf(" %d %d\n", v[i].m_score, v[i].m_num);
+	}
+    
+```
+
+
+
+
+
+
+
+
+
+```c++
+#include <iostream>
+#include<string>
+#include<map>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+
+struct school{
+	string m_name;
+	int m_num, m_score, m_sumA, m_sumB, m_sumT;
+	school(string name = "", int score = 0, int num = 0)
+		:m_name(name), m_score(score), m_num(num) {m_sumA = 0, m_sumB = 0, m_sumT = 0;};
+};
+
+
+bool cmp(const school& a, const school& b) {
+	if (a.m_score != b.m_score) return a.m_score > b.m_score;
+	if (a.m_num != b.m_num) return a.m_num < b.m_num;
+	return a.m_name < b.m_name;
+}
+
+int main() {
+
+
+	map<string, school> m;
+	int N;
+	scanf("%d", &N);
+
+	int score;
+	string id, sch;
+	while (N--) {
+		cin >> id >> score >> sch;
+		for (int i = 0; i < sch.size(); i++) sch[i] = tolower(sch[i]); /*转为小写*/
+
+		switch (id[0])
+		{
+		case 'B': m[sch].m_sumB += score; break;
+		case 'A': m[sch].m_sumA += score; break;
+		case 'T': m[sch].m_sumT += score; break;
+		}
+		m[sch].m_num++;/*该校学生加一*/
+	}
+	
+	vector<school> v;
+	for (map<string, school>::iterator it = m.begin(); it != m.end(); it++) {
+		int score = (int)(it->second.m_sumB / 1.5 + it->second.m_sumA + it->second.m_sumT * 1.5);
+		v.push_back(school(it->first, score, it->second.m_num));
+	}
+		
+	sort(v.begin(), v.end(), cmp);
+	cout << v.size() << endl;
+	for (int i = 0,rank = 1,tied = 0; i < v.size(); i++) {
+		cout<<rank<<" " << v[i].m_name << " " << v[i].m_score << " " << v[i].m_num << endl;
+		if (i < v.size() && v[i].m_score != v[i + 1].m_score) { rank += tied; rank++; tied = 0; }
+		else tied++;
+	}
+
+	return 0;
+}
+```
+
+
+
+
+
+```c++
+#include <iostream>
+#include<string>
+#include<unordered_map>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+
+struct school{
+	string m_name;
+	int m_num, m_score;
+	school(string name = "", int score = 0, int num = 0):m_name(name), m_score(score), m_num(num) {};
+};
+
+
+bool cmp(const school& a, const school& b) {
+	if (a.m_score != b.m_score) return a.m_score > b.m_score;
+	if (a.m_num != b.m_num) return a.m_num < b.m_num;
+	return a.m_name < b.m_name;
+}
+
+int main() {
+
+
+	unordered_map<string, int> STN;/*school to number of students*/
+	unordered_map<string, float> STS;/*school to total score*/
+
+	int N;
+	scanf("%d", &N);
+
+	int score;
+	string id, sch;
+	while (N--) {
+		cin >> id >> score >> sch;
+		for (int i = 0; i < sch.size(); i++) sch[i] = tolower(sch[i]); /*转为小写*/
+
+		switch (id[0]){
+		case 'B': STS[sch] += score/1.5; break;
+		case 'A': STS[sch] += score*1.0; break;
+		case 'T': STS[sch] += score*1.5; break;
+		}
+		STN[sch]++;/*该校学生加一*/
+	}
+	
+	vector<school> v;
+	for (auto it = STN.begin(); it != STN.end(); it++) 
+        v.push_back(school(it->first, (int)STS[it->first], it->second));
+	/*排序*/
+	sort(v.begin(), v.end(), cmp);
+	cout << v.size() << endl;
+    
+    for (int i = 0,rank = 1,tied = 0; i < v.size(); i++) {
+		cout<< rank <<" " << v[i].m_name << " " << v[i].m_score << " " << v[i].m_num << endl;
+		if (i < v.size()-1 && v[i].m_score != v[i + 1].m_score) { rank += tied; rank++; tied = 0; }
+		else tied++;
+	}
+    
+   
+	
+
+	return 0;
+}
+```
+

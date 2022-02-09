@@ -1,0 +1,27 @@
+# 1057
+
+本来想用itoa函数得，奈何代码在VS上过得了，但在PTA上编译出错
+
+```c++
+#include<cstdio>
+#include<ctype.h>
+
+
+int main() {
+
+	int ans = 0, c;
+	int one = 0, zero = 0;
+	while ((c = getchar()) != '\n') if (isalpha(c)) ans += (tolower(c) - 'a' + 1);
+
+	while (ans > 0) {
+		ans % 2 == 0 ? zero++ : one++;
+		ans /= 2;
+	}
+
+	printf("%d %d\n", zero, one);
+
+
+	return 0;
+}
+```
+

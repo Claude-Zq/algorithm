@@ -1,0 +1,30 @@
+# 1069
+
+
+
+```c++
+#include<iostream>
+#include<string>
+#include<set>
+using namespace std;
+
+int main() {
+	int m, n, s;
+	cin >> m >> n >> s;
+	string name;
+	set<string> checked;
+
+	for (int i = 1; i <= m; i++) {
+		cin >> name;
+		if (i >= s && (i - s) % n == 0 ) {
+			if (checked.count(name)) s++; /*顺次取下一位*/
+			else { cout << name <<endl; checked.insert(name); }
+		}
+	}
+
+	if (checked.size() == 0) cout << "Keep going..." << endl;
+
+	return 0;
+}
+```
+

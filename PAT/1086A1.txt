@@ -1,0 +1,24 @@
+# 1086
+
+```c++
+#include<cstdio>
+
+int main() {
+
+	int a, b;
+	char buff[50];
+
+	scanf("%d %d", &a, &b);
+	sprintf(buff, "%d", a * b);
+
+	int index = 0;
+	while (buff[index+1] != '\0') index++;/*把索引移到最后一个字符*/
+
+	while (buff[index] == '0') index--;/*把索引移到倒数第一个非零数字*/
+	for (; index >= 0; index--) putchar(buff[index]);
+	putchar('\n');
+
+	return 0;
+}
+```
+
