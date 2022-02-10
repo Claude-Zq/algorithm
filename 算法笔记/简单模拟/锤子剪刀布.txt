@@ -1,0 +1,45 @@
+```c++
+#include<cstdio>
+
+
+int main() {
+
+	char A, B;
+	int n;
+	int wA = 0, draw=0;/*记录A胜的次数和平局次数*/
+	int c1, b1, j1, c2, b2, j2;/*记录A、B的剪刀石头部分别赢的次数*/
+	c1 = b1 = j1 = c2 = b2 = j2 = 0;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf(" %c %c", &A, &B); /*第一个%c前必须添空格来忽略空格*/
+		if (A == B)  draw++;
+		else if (A == 'B') {
+			if (B == 'C') { b1++; wA++; }
+			else  j2++; 
+		}
+		else if (A == 'J') {
+			if (B == 'B') { j1++; wA++; }
+			else c2++;
+		}
+		else if (A == 'C') {
+			if (B == 'J') { c1++; wA++; }
+			else b2++;
+		}
+	}
+
+	printf("%d %d %d\n", wA, draw, n - (wA + draw));
+	printf("%d %d %d\n", n - (wA + draw), draw, wA);
+
+	if (b1 >= c1 && b1 >= j1) putchar('B');
+	else printf("%c", c1 >= j1 ? 'C' : 'J');
+		
+	putchar(' ');
+
+	if (b2 >= c2 && b2 >= j2) putchar('B');
+	else printf("%c", c2 >= j2 ? 'C' : 'J');
+
+	
+	return 0;
+}
+```
+

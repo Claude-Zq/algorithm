@@ -1,0 +1,21 @@
+```c++
+#include<cstdio>
+
+int main() {
+
+	int m;
+	scanf("%d", &m);
+	while (m--) {
+		int h;
+		scanf("%d", &h);
+		for (int i = 0; i < h; i++) {
+			for (int j = h - i - 1; j > 0; j--) putchar(' ');
+			for (int j = h + 2 * i; j > 0; j--) putchar('*');
+			putchar('\n');
+		}
+	}
+
+	return 0;
+}
+```
+

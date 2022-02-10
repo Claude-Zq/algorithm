@@ -1,0 +1,95 @@
+有bug版
+
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+#include<unordered_map>
+using namespace std;
+
+struct student {
+public:
+	string name, sex;
+	int age;
+    
+	student(string name = "", string sex ="", int age = 0) {
+		this->name = name;
+		this->sex = sex;
+		this->age = age;
+	}
+
+};
+
+void Print(int id, const student& s) {
+	printf("%03d ", id);
+	cout << s.name << " " << s.sex << " " << s.age << endl;
+}
+
+int main() {
+	
+	int N, M;
+	cin >> N;
+	unordered_map<int, student> ITS; /*id to student*/
+	while (N--) {
+		int id, age;
+		string name, sex;
+		cin >> id >> name >> sex >> age;
+		ITS[id] = student(name,sex,age);
+	}
+
+	cin >> M;
+	while (M--) {
+		int id;
+		cin >> id;
+		auto it = ITS.find(id);
+		if (it != ITS.end()) Print(id, (*it).second);
+		else cout << "No Answer!" << endl;
+	}
+
+	return 0;
+}
+```
+
+
+
+```c++
+#include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+
+struct student {
+public:
+	string m_name, m_sex;
+	int m_age;
+	student(string name = "", string sex = "", int age = 0) :m_name(name), m_sex(sex), m_age(age) {}
+};
+
+void Print(const string& id, const student& s) {
+	cout << id << "" << s.m_name << " " << s.m_sex << " " << s.m_age << endl;
+}
+
+int main() {
+
+	int N;
+	map<string, student> ITS; /*id to student*/
+	while (N--) {
+		int  age;
+		string id, name, sex;
+		cin >> id >> name >> sex >> age;
+		ITS[id] = student(name, sex, age);
+	}
+	int M;
+	cin >> M;
+	while (M--) {
+		string id;
+		cin >> id;
+		map<string, student>::iterator it = ITS.find(id);
+		if (it != ITS.end()) Print(id, (*it).second);
+		else cout << "No Answer!" << endl;
+	}
+	
+	return 0;
+}
+```
+

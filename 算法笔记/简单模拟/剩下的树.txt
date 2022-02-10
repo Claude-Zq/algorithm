@@ -1,0 +1,24 @@
+```c++
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int main() {
+	
+	int L, M;
+	while (scanf("%d %d", &L, &M) == 2, L != 0 && M != 0) {
+		vector<bool> tree(L + 1);
+		int begin, end;
+		fill(tree.begin(), tree.end(), true);
+		while (M--) {
+			scanf("%d %d", &begin, &end);
+			for (int i = begin; i <= end; i++) tree[i] = false;
+		}
+		printf("%d\n", count(tree.begin(), tree.end(), true));
+	}
+    
+	return 0;
+}
+```
+

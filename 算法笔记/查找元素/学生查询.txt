@@ -1,0 +1,41 @@
+
+
+```c++
+#include<string>
+#include<iostream>
+#include<map>
+using namespace std;
+
+struct student {
+	string m_name, m_sex;
+	int m_age;
+	student(string name="", string sex = "", int age = 0) :m_name(name), m_sex(sex), m_age(age) {}
+};
+
+int main() {
+    
+	int m;
+	cin >> m;
+	while (m--) {
+		map<int, student> m;
+		int n;
+		cin >> n;
+		while (n--) {
+			int id, age;
+			string name, sex;
+			cin >> id >> name >> sex >> age;
+			m[id] = student(name, sex, age);
+		}
+		int key;
+		cin >> key;
+		map<int, student>::iterator it = m.find(key);
+	    cout << key << " " 
+            << it->second.m_name << " "
+            << it->second.m_sex << " " 
+            << it->second.m_age << endl;
+	}
+
+	return 0;
+}
+```
+
