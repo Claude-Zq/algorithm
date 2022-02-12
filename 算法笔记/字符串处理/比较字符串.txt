@@ -1,0 +1,25 @@
+
+
+
+
+```c++
+#include<cstdio>
+#include<cstring>
+const int maxn = 50+5;
+
+int main() {
+	char a[maxn], b[maxn];
+	const char* msg[] = { "is longer than","is equal long to","is shorter than" };
+	int m;
+	scanf("%d", &m);
+	while (m--) {
+		scanf("%s %s", a, b);
+		int len1 = strlen(a), len2 = strlen(b),ans;
+		if (len1 == len2) ans = 1;
+		else ans = len1 > len2 ? 0 : 2;
+		printf("%s %s %s\n", a, msg[ans], b);
+	}
+	return 0;
+}
+
+```

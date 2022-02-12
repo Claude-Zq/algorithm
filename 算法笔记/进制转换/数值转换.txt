@@ -1,0 +1,37 @@
+
+
+```c++
+#include<cstdio>
+#include<cctype>
+#include<cstring>
+
+
+int main() {
+
+	int a, b;
+	char n[40],ans[40];
+
+	while (scanf("%d %s %d", &a, n, &b) == 3) {
+		long temp = 0;
+        /*将n转为十进制temp*/
+		for (int i = strlen(n) - 1,power = 1; i >= 0; i--) {
+			if (isalpha(n[i])) temp += (10 + tolower(n[i]) - 'a') * power;
+			else temp += (n[i] - '0') * power;
+			power *= a;
+		}
+        /*将temp转为b进制*/
+		int index = -1;
+		do {
+			int x = temp % b;
+			temp /= b;
+			ans[++index] = x >= 10 ? ('A' + x - 10) : ('0' + x);
+		} while (temp > 0);
+		for (int i = index; i >= 0; i--) putchar(ans[i]);
+		putchar('\n');
+	}
+
+	return 0;
+}
+
+```
+

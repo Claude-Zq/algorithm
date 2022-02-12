@@ -1,0 +1,85 @@
+
+
+### 有bug版
+
+```c++
+#include<cstdio>
+#include<cstring>
+const int maxn = 1000;
+
+int main() {
+
+	char a[maxn], b[maxn],c;								/*有问题*/
+	while ((fgets(a, maxn, stdin) != NULL) && (scanf(" %c", &c) == 1)){ 
+		int index = 0;
+		for (int i = 0; (a[i] != '\n') && (a[i] != '\0'); i++) {
+			if (a[i] == c) continue;
+			b[index++] = a[i];
+		}
+		b[index] = '\0';
+		printf("%s\n", b);
+		getchar();/*去掉字符后的回车*/
+	}
+
+	return 0;
+}
+```
+
+
+
+
+
+
+```c++
+#include<cstdio>
+#include<cstring>
+const int maxn = 300;
+
+int main() {
+
+	char a[maxn], b[maxn],c;
+	while (fgets(a, maxn, stdin) != NULL) {
+
+        c = getchar();
+		int index = 0;
+		for (int i = 0; a[i] != '\n'; i++) {
+			if (a[i] == c) continue;
+			b[index++] = a[i];
+		}
+		b[index] = '\0';
+		printf("%s\n", b);
+		getchar();/*去掉字符后的回车*/
+	}
+	
+	return 0;
+}
+
+```
+
+
+
+
+
+/*有bug版*/
+
+```c++
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main() {
+
+	string s;
+	char c;
+	while (getline(cin,s)) {
+		cin >> c;
+		for (string::iterator it = s.begin(); it != s.end();)
+			if (c == *it) { s.erase(it); }
+			else it++;
+
+		cout << s << endl;
+	}
+	return 0;
+}
+```
+

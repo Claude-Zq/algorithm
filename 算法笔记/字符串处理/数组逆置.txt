@@ -1,0 +1,21 @@
+
+
+
+
+```c++
+#include<cstdio>
+const int maxn = 200 + 5;
+char s[maxn];
+
+int main() {
+	while (fgets(s,maxn,stdin)!=NULL) {
+		int index = -1;
+		while (s[index + 1] != '\0' && s[index + 1] != '\n') index++;
+		while (index >= 0) putchar(s[index--]);
+		putchar('\n');
+	}
+	return 0;
+}
+
+```
+
