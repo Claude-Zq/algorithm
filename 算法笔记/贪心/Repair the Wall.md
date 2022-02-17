@@ -17,7 +17,7 @@ int main()
         
 		sort(v.rbegin(), v.rend());/*降序排列*/
 
-		int ans = 0;/*计算答案*
+		int ans = 0;/*计算答案*/
 		for (int i = 0; i < n && l>0; i++,ans++) l -= v[i];
 
 		if (l > 0) printf("impossible\n");
